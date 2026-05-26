@@ -1,50 +1,50 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- 
+Sync Impact Report:
+- Version change: [TEMPLATE] -> 1.0.0
+- Modified principles: 
+  - [PRINCIPLE_1_NAME] -> I. API-First & Internal Consistency
+  - [PRINCIPLE_2_NAME] -> II. Transactional Integrity & Idempotency
+  - [PRINCIPLE_3_NAME] -> III. Security-First Hybrid Auth
+  - [PRINCIPLE_4_NAME] -> IV. Offline-First Resilience
+  - [PRINCIPLE_5_NAME] -> V. Observable Execution
+- Added sections: Core Principles, Governance
+- Templates requiring updates: 
+  - plan-template.md (✅ updated via manual check)
+  - spec-template.md (✅ updated via manual check)
+  - tasks-template.md (✅ updated via manual check)
+- Follow-up TODOs: None.
+-->
+
+# KB Brothers FMCG Store Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. API-First & Internal Consistency
+Every system interaction must be mediated by a well-defined, versioned API. The backend (FastAPI) is the single source of truth for business logic. The frontend (Next.js) must strictly consume these interfaces, ensuring that the "GTM" landing page and "Admin/Client" portals share the same underlying data state.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Transactional Integrity & Idempotency
+In FMCG distribution, stock accuracy and order fidelity are paramount. All state mutations (inventory adjustments, order placements) MUST be transactional. We adopt Stripe's pattern of idempotency keys for all critical operations to prevent duplicate orders or stock double-counts during sync.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Security-First Hybrid Auth
+Authentication is the gatekeeper for business data. We use Supabase Auth for Hybrid (SSO + Phone/OTP) flows. All routes are "Secure by Default." Access control (RBAC) must distinguish between Admin and Retailer scopes at the database level (RLS) and the API layer.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Offline-First Resilience
+Field operations occur in low-connectivity areas. The application MUST provide a seamless offline experience using IndexedDB (Dexie.js). Sync logic should favor server-side authority while providing the user with actionable conflict resolution UI. If it doesn't work offline, it doesn't work for our users.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Observable Execution
+We cannot improve what we cannot measure. Every critical path (Auth, Order Sync, Stock Update) must emit structured logs and metrics. We prioritize observability to detect stock race conditions or sync failures in real-time, aligned with our <2s dashboard latency goal.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Security Requirements
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+Retailer data (PII) and business metrics are sensitive. We strictly adhere to data protection standards. No business metrics or inventory case quantities should be exposed to unauthenticated public visitors on the GTM landing page.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+1. **Spec-First**: No code is written without a refined specification and design review.
+2. **Atomic Commits**: Changes must be small, focused, and mapped to a specific task ID.
+3. **Test-First (Mandatory)**: All core business logic (Inventory FEFO, Order Lifecycle) must have companion unit or integration tests.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution is the supreme guide for the KB Brothers project. Amendments require a version bump and coordination across spec, plan, and tasks. All pull requests must be validated against these five principles.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-05-09 | **Last Amended**: 2026-05-09
