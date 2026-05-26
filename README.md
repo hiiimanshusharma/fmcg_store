@@ -1,88 +1,86 @@
-# KB Brothers FMCG Distribution Application
+# KB Brothers: Redefining FMCG Distribution
 
-A specialized distribution management system for **KB Brothers**, focused on the efficient distribution of Hindustan Unilever (HUL) products. The platform provides tailored experiences for both warehouse administrators and retail clients to streamline the supply chain from distributor to retailer.
+**Empowering the supply chain for Hindustan Unilever (HUL) products with a premium, digital-first distribution ecosystem.**
 
-## 🚀 Project Overview
+KB Brothers is not just a management tool; it's a comprehensive Go-To-Market engine designed to bridge the gap between global product excellence and local retail execution. By digitizing the relationship between distributors and retailers, we ensure that the right products reach the right shelves at the right time.
 
-The application is designed to handle the complexities of FMCG distribution, including real-time inventory tracking, HUL product hierarchy management, and a high-impact Go-To-Market (GTM) presence to attract new retail partners.
+---
 
-### Key Personas
-- **Admin (Distributor)**: Manages the HUL product catalog, monitors real-time stock levels using FEFO (First Expired, First Out) logic, approves new retailer registrations, and tracks business metrics via an analytics dashboard.
-- **Client (Retailer)**: Browses the digital HUL catalog, places orders for restocking, and manages their store's relationship with KB Brothers.
+## 🌟 The Vision
 
-## 🛠 Tech Stack
+In the fast-paced world of FMCG, efficiency is the only currency that matters. KB Brothers transforms traditional distribution into a streamlined digital experience, reducing friction in ordering, eliminating inventory guesswork, and scaling retailer acquisition through a high-impact digital presence.
 
-### Backend
-- **Framework**: FastAPI (Python)
-- **Database & Auth**: Supabase
-- **Testing**: Pytest, Pytest-asyncio
-- **Environment**: `python-dotenv`
+### 💎 Tailored Experiences
 
-### Frontend
-- **Framework**: Next.js (App Router)
-- **Styling**: Tailwind CSS
-- **Language**: TypeScript
+#### For the Distributor (Admin)
+**Total Command & Control.**
+Manage your entire HUL portfolio from a single pane of glass. From FEFO-based inventory precision to real-time business intelligence, the Admin suite is built for operational excellence.
+- **Precision Inventory**: Batch tracking and expiry management to minimize waste.
+- **Growth Analytics**: Monitor retailer growth, stockout rates, and turnover ratios.
+- **Network Management**: Seamlessly onboard and approve new retail partners.
 
-## 📂 Project Structure
+#### For the Retailer (Client)
+**Ordering, Simplified.**
+A premium digital storefront that puts the entire HUL catalog in the palm of the retailer's hand. No more manual lists or phone-tag—just a few clicks to restock.
+- **Digital Catalog**: Browse HUL's world-class brands with intuitive category filtering.
+- **Instant Ordering**: Fast, reliable ordering with integrated backorder support.
+- **Seamless Access**: Modern hybrid authentication (Gmail SSO & Phone/OTP) for secure, effortless login.
 
+---
+
+## 🚀 Core Pillars of Innovation
+
+### 📈 Market Expansion (GTM)
+The platform features a high-impact landing page designed as a marketing vehicle. It showcases the prestige of the HUL partnership to attract and convert prospective retailers into long-term partners.
+
+### ⚡ Operational Resilience
+Built for the real world. With **Offline-First architecture**, retailers can browse and place orders even in remote areas with poor connectivity, with seamless background synchronization once back online.
+
+### 🛠 Technical Excellence
+Powered by a modern, scalable stack designed for low latency and high availability, ensuring that stock updates are reflected across the network in under 5 seconds.
+
+---
+
+## 🛠 Technical Foundation (Developer's Guide)
+
+For contributors and engineers, the project is built on a robust monorepo architecture.
+
+### Tech Stack
+- **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS.
+- **Backend**: FastAPI (Python), Supabase (Database & Auth).
+- **Quality**: Pytest, Pytest-asyncio.
+
+### Project Structure
 ```text
 .
-├── backend/             # FastAPI application
-│   ├── app/             # Core application logic
-│   │   ├── api/         # REST API endpoints
-│   │   ├── models/      # Data schemas and Pydantic models
-│   │   ├── services/    # Business logic layer
-│   │   └── main.py      # Application entry point
-│   └── tests/            # Backend test suite
-├── frontend/            # Next.js application
-│   ├── src/             # Application source code
-│   └── public/          # Static assets and images
-└── specs/               # Feature specifications and design documents
+├── backend/             # FastAPI core logic (API, Models, Services)
+├── frontend/            # Next.js application (Source, Assets)
+└── specs/               # Comprehensive feature specifications & design docs
 ```
 
-## 🚦 Getting Started
+### Getting Started
 
-### Prerequisites
-- Python 3.10+
-- Node.js 18+
-- Supabase account for backend services
+**Backend Setup:**
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
 
-### Backend Setup
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Start the development server:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
+**Frontend Setup:**
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-### Frontend Setup
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+## 👥 Contributors
 
-## ✨ Key Features
-
-- **GTM Landing Page**: A premium public-facing page showcasing the partnership with HUL to drive retailer acquisition.
-- **Inventory Management**: Real-time stock tracking with batch and expiry date management.
-- **Hybrid Authentication**: Secure access via Gmail SSO and Phone/OTP.
-- **Digital Catalog**: Category-based browsing of HUL products with "Backorder" support for out-of-stock items.
-- **Analytics Dashboard**: High-level metrics including Total Retailers, Inventory Turnover, and Stockout Rates.
-- **Offline Capabilities**: Designed for resilience in areas with poor connectivity, supporting offline order placement and background sync.
+| Contributor | Role |
+|---|---|
+| [hiiimanshusharma](https://github.com/hiiimanshusharma) | 👨‍💻 Creator & Lead Developer |
+| [Antigravity](https://deepmind.google/) (Google DeepMind) | 🤖 AI Pair Programmer |
+| [Claude](https://www.anthropic.com/) (Anthropic) | 🤖 AI Pair Programmer |
 
 ## 📄 Documentation
-For detailed technical specifications and implementation plans, refer to the `specs/` directory.
+Detailed technical specifications, API contracts, and implementation roadmaps are available in the `/specs` directory.
