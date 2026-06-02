@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { useEffect } from "react";
 
 const navItems = [
   { href: "/client/catalog", label: "Catalog", icon: "🛒" },
@@ -15,6 +17,28 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, profile, loading, signOut } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [user, loading, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--background)" }}>
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs animate-pulse" style={{ background: "var(--kb-blue)" }}>
+          KB
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) return null;
+
+  const storeName = (profile?.store_name as string) || user.email || "Retailer";
 
   return (
     <div className="min-h-screen" style={{ background: "var(--background)" }}>
@@ -56,9 +80,16 @@ export default function ClientLayout({
               </div>
             </div>
             <div className="flex items-center gap-4 text-sm">
-              <span>🔔</span>
-              <span className="font-medium" style={{ color: "var(--kb-blue)" }}>₹1,210</span>
-              <span style={{ color: "var(--muted)" }}>Aman&#39;s Store ▾</span>
+              <span className="font-medium truncate max-w-[150px]" style={{ color: "var(--muted)" }}>
+                {storeName}
+              </span>
+              <button
+                onClick={signOut}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105"
+                style={{ background: "rgba(239, 68, 68, 0.08)", color: "#EF4444" }}
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         </div>

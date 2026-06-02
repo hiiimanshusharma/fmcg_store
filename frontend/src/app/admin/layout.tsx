@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { useEffect } from "react";
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: "📊" },
@@ -15,6 +17,26 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, role, loading, signOut } = useAuth();
+
+  useEffect(() => {
+    if (!loading && (!user || role !== "admin")) {
+      router.push("/login");
+    }
+  }, [user, role, loading, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--background)" }}>
+        <div className="w-10 h-10 rounded-xl gradient-gold flex items-center justify-center font-bold animate-pulse">
+          KB
+        </div>
+      </div>
+    );
+  }
+
+  if (!user || role !== "admin") return null;
 
   return (
     <div className="min-h-screen flex" style={{ background: "var(--background)" }}>
@@ -32,7 +54,7 @@ export default function AdminLayout({
             <div className="font-bold text-sm" style={{ fontFamily: "var(--font-display)" }}>
               KB BROTHERS
             </div>
-            <div className="text-xs text-white/40">(Logo)</div>
+            <div className="text-xs text-white/40">Admin Panel</div>
           </div>
         </div>
 
@@ -59,6 +81,11 @@ export default function AdminLayout({
 
         {/* Bottom Links */}
         <div className="space-y-2 mt-auto">
+          {/* User info */}
+          <div className="px-4 py-3 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.04)" }}>
+            <div className="text-white/60 mb-0.5">Signed in as</div>
+            <div className="text-white/90 font-medium truncate">{user.email}</div>
+          </div>
           <Link
             href="/"
             className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-white/40 hover:text-white/70 transition-colors"
@@ -66,14 +93,13 @@ export default function AdminLayout({
             <span>🌐</span>
             <span>Back to Site</span>
           </Link>
-          <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-white/40">
-            <span>⚙️</span>
-            <span>Settings</span>
-          </div>
-          <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-white/40">
-            <span>❓</span>
-            <span>Help</span>
-          </div>
+          <button
+            onClick={signOut}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-white/40 hover:text-red-400 transition-colors w-full text-left"
+          >
+            <span>🚪</span>
+            <span>Sign Out</span>
+          </button>
         </div>
       </aside>
 
